@@ -2,7 +2,7 @@ import requests
 import json
 
 def getint(portnum):
-    url='http://10.94.238.121/ins'
+    url='http://ENTERIP/ins'
     switchuser='admin'
     switchpassword='cisco'
     portnum = str(portnum)
