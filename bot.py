@@ -1,6 +1,7 @@
 import os
 from ciscosparkbot import SparkBot
 from nxos.version import get_version
+from nxos.arp import get_iparp
 
 bot_email = os.getenv("SPARK_BOT_EMAIL")
 spark_token = os.getenv("SPARK_BOT_TOKEN")
@@ -21,4 +22,9 @@ bot.add_command('version',
                 "Get the running version from an NX-OS switch. \
                 e.g `@{} version 10.1.1.1`".format(bot_email.split('@')[0]),
                 version)
+bot.add_command('arp',
+                'retrieve the arp table of a switch. \
+                e.g. `@{} arp 10.1.1.1`'.format(bot_email.split('@')[0]),
+                get_iparp)
+
 bot.run(host='0.0.0.0', port=5000)
