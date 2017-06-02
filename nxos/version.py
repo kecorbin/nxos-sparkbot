@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 def get_version(ip, user, passwd):
     """
     Get the NX-OS version from a switch
