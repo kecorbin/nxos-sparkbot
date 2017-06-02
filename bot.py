@@ -2,10 +2,10 @@ import os
 from ciscosparkbot import SparkBot
 from showint import getint
 
-bot_email = "nxosbot@sparkbot.io"
-spark_token = "MjMwNjYzNTItOTkyMC00NGM3LTk4ZmYtOTI5MjVhNTA2OTlkM2U3YWUwZjItMGU5"
-bot_url = "https://5675ed53.ngrok.io"
-bot_app_name = "nxosbot"
+bot_email = "ENTERBOTEMAIL"
+spark_token = "ENTERTOKENM"
+bot_url = "ENTERURL"
+bot_app_name = "ENTERAPPNAME"
 
 def do_something(incoming_msg):
     return "i did what you said - {}".format(incoming_msg.text)
