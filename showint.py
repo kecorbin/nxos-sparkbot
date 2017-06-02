@@ -2,11 +2,11 @@ import requests
 import json
 
 def getint(portnum):
-    url='http://10.10.20.58/ins'
+    url='http://10.94.238.121/ins'
     switchuser='admin'
-    switchpassword='cisco123'
+    switchpassword='cisco'
     portnum = str(portnum)
-    portnum = 'eth1/1'
+    #portnum = 'eth1/1'
     myheaders={'content-type':'application/json-rpc'}
     payload=[
       {
@@ -20,7 +20,13 @@ def getint(portnum):
       }
     ]
     response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword)).json()
-    portdetails = response['result']['body']['TABLE_interface']['ROW_interface']
+
+    try:
+        portdetails = response['result']['body']['TABLE_interface']['ROW_interface']
+    except KeyError, e:
+        print 'KEY ERROR - %s' %str(e)
+        return 'Something went Wrong. Are you sure you typed the correct interface name? \
+         For example: **@nxosbot port Eth1/1**'
 
 
     state = portdetails['admin_state'] + '/' + portdetails['state']
@@ -31,6 +37,7 @@ def getint(portnum):
     mac = portdetails['eth_hw_addr']
 
     return 'The state for port **' + portnum + '** is **' + state + '**!  Its description is **' + desc + \
-           '** and is currently enabled as a **' + mode + '** port running at **' + speed + '**'
+           '**. It is currently enabled as a **' + mode + '** port running at **' + speed + '**' + \
+           ' and MTU is set at **' + mtu + '**'
 
 #print getint('eth1/1')
