@@ -1,14 +1,17 @@
 import requests
 import json
 
-def getint(portnum):
-    url='http://ENTERIP/ins'
-    switchuser='admin'
-    switchpassword='cisco'
+def getint(portnum, ip, user, passwd):
+    """
+    Get the show interface details for a port.
+    """
+    url = 'http://{}/ins'.format(ip)
+    switchuser = user
+    switchpassword = passwd
     portnum = str(portnum)
-    #portnum = 'eth1/1'
-    myheaders={'content-type':'application/json-rpc'}
-    payload=[
+
+    myheaders = {'content-type':'application/json-rpc'}
+    payload = [
       {
         "jsonrpc": "2.0",
         "method": "cli",
@@ -24,13 +27,13 @@ def getint(portnum):
     try:
         portdetails = response['result']['body']['TABLE_interface']['ROW_interface']
     except KeyError, e:
-        print 'KEY ERROR - %s' %str(e)
-        return 'Something went Wrong. Are you sure you typed the correct interface name? \
-         For example: **@nxosbot port Eth1/1**'
-
-
+        return 'Something went Wrong. Are you sure you typed the correct interface name?'
     state = portdetails['admin_state'] + '/' + portdetails['state']
-    desc = portdetails['desc']
+    try:
+        desc = portdetails['desc']
+    except KeyError, e:
+        desc = "undefined"
+        pass
     mode = portdetails['eth_mode']
     speed = portdetails['eth_speed']
     mtu = portdetails['eth_mtu']
@@ -40,4 +43,3 @@ def getint(portnum):
            '**. It is currently enabled as a **' + mode + '** port running at **' + speed + '**' + \
            ' and MTU is set at **' + mtu + '**'
 
-#print getint('eth1/1')
