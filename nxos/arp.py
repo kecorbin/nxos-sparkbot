@@ -38,7 +38,7 @@ def get_iparp(message):
     if len(arplist) == 0:
         response2spark = "# sorry...no arp entries exist!"
 
-    elif isinstance(response['result']['body']['TABLE_vrf']['ROW_vrf']['TABLE_adj']['ROW_adj'],dict):
+    elif isinstance(arplist,dict):
         # check for dictionary, handle single ARP entry
         response2spark = "# here is your arp table...\n"
         arp = arplist
