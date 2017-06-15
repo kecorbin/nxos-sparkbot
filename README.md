@@ -52,6 +52,13 @@ export NXOS_PASSWORD=cisco
 export NXOS_LOGIN=admin
 ```
 
+You'll also want to modify the [config.py](./config.py) file and update the list
+of switches for your environment.
+
+```
+switches = ['dist-sw-01','dist-sw-02','10.10.10.10']
+```
+
 # ngrok
 
 ngrok will make easy for you to develop with a live bot.
