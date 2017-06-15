@@ -2,10 +2,15 @@
 
 This is a sample sparkbot which will get useful information from an NX-OS device.
 
+Here is a screenshot with the current capabilities:
 
-# Prerequisites
+![screenshot](images/screenshot.png)
+
+
+# Using this bot
 
 If you don't already have a Cisco Spark account, go ahead and register for one.  They are free.
+
 You'll need to start by adding your bot to the Cisco Spark website.
 
 https://developer.ciscospark.com/add-app.html
@@ -31,10 +36,10 @@ Create a virtualenv and install the module
 ```
 virtualenv venv
 source venv/bin/activate
-pip install ciscosparkbot
+pip install -r requirements.txt
 ```
 
-# Usage
+# Configuration
 
 The easiest way to use this module is to set a few environment variables
 
@@ -47,11 +52,9 @@ export NXOS_PASSWORD=cisco
 export NXOS_LOGIN=admin
 ```
 
-We've included a [sample bot](bot.py) that has some basic commands to get you started quickly
-
 # ngrok
 
-ngrok will make easy for you to develop your code with a live bot.
+ngrok will make easy for you to develop with a live bot.
 
 You can find installation instructions here: https://ngrok.com/download
 
