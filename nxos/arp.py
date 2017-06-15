@@ -26,6 +26,9 @@ def get_iparp(message):
       }
     ]
     response = requests.post(url, data=json.dumps(payload), headers=myheaders, auth=(switchuser, switchpassword)).json()
+
+    # we will either have nothing, a list or a dictionary
+    # check for nothing, return no apr entries exist
     try:
         arplist = response['result']['body']['TABLE_vrf']['ROW_vrf']['TABLE_adj']['ROW_adj']
 
@@ -33,8 +36,19 @@ def get_iparp(message):
         arplist = []
 
     if len(arplist) == 0:
-        response2spark = "sorry...no arp entries exist!"
+        response2spark = "# sorry...no arp entries exist!"
+
+    elif isinstance(arplist,dict):
+        # check for dictionary, handle single ARP entry
+        response2spark = "# here is your arp table...\n"
+        arp = arplist
+        mac = (arp['mac'])
+        ipaddr = (arp['ip-addr-out'])
+        arpresult = "* Mac Address = {}, IP Address = {}, \n".format(mac, ipaddr)
+        response2spark = response2spark + arpresult
     else:
+        # check for list, meaning multiple arp entries
+
         response2spark = "# here is your arp table...\n"
         for arp in arplist:
             mac = (arp['mac'])
