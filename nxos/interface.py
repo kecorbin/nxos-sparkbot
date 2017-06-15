@@ -1,13 +1,17 @@
 import requests
 import json
+import os
 
-def getint(portnum, ip, user, passwd):
+nxos_username = os.getenv("NXOS_LOGIN")
+nxos_password = os.getenv("NXOS_PASSWORD")
+
+def getint(ip, portnum):
     """
     Get the show interface details for a port.
     """
     url = 'http://{}/ins'.format(ip)
-    switchuser = user
-    switchpassword = passwd
+    switchuser = nxos_username
+    switchpassword = nxos_password
     portnum = str(portnum)
 
     myheaders = {'content-type':'application/json-rpc'}

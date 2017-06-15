@@ -1,13 +1,15 @@
 import requests
 import json
+import os
 
-def get_version(ip, user, passwd):
+nxos_username = os.getenv("NXOS_LOGIN")
+nxos_password = os.getenv("NXOS_PASSWORD")
+
+def get_version(ip):
     """
     Get the NX-OS version from a switch
     """
     url='http://{}/ins'.format(ip)
-    switchuser=user
-    switchpassword=passwd
 
     myheaders={'content-type':'application/json'}
     payload={
@@ -20,6 +22,6 @@ def get_version(ip, user, passwd):
         "output_format": "json"
       }
     }
-    response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(switchuser,switchpassword))
+    response = requests.post(url,data=json.dumps(payload), headers=myheaders,auth=(nxos_username,nxos_password))
     resp = response.json()['ins_api']['outputs']['output']['body']['kickstart_ver_str']
     return resp
